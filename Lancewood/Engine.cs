@@ -28,6 +28,9 @@ public class Engine
             {PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true};
         var config = JsonSerializer.Deserialize<LancewoodConfig>(fileContent, jsonSerializerOptions);
 
+        if (config == null)
+            throw new InvalidOperationException("Couldn't parse config");
+
         return config;
     }
 

@@ -23,13 +23,14 @@ public class TerminalInterface
 
     public TerminalInterface(string[] args)
     {
-        if (!args.Any())
-        {
-            AnsiConsole.MarkupLine("[red]Please provide a path to your Lancewood config file.[/]");
-            Environment.Exit(1);
-        }
+        // if (!args.Any())
+        // {
+        //     AnsiConsole.MarkupLine("[red]Please provide a path to your Lancewood config file.[/]");
+        //     Environment.Exit(1);
+        // }
 
-        var configPath = args.First();
+        // var configPath = args.First();
+        var configPath = @"C:\Users\matt\RiderProjects\Lancewood\lancewood.windows.json";
         _engine = new Engine(configPath, Console.Out);
     }
 
