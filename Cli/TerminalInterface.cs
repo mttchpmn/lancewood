@@ -4,6 +4,11 @@ using Spectre.Console;
 
 namespace Cli;
 
+// TODO - Create default config wizard if no config provided
+// TODO - Config parsing error handling
+// TODO - View config items in TUI
+// TODO - Add / mute / modify config items in TUI
+
 public class TerminalInterface
 {
     const string RunAll = "Run all bootstrapping actions";
@@ -39,22 +44,15 @@ public class TerminalInterface
             action = AnsiConsole.Prompt(
                 new SelectionPrompt<String>()
                     .Title("Please select desired action:")
-                    .AddChoices(new[]
-                    {
-                        RunAll,
-                        InstallPackages,
-                        OpenWebLinks,
-                        SymlinkDotfiles,
-                        ExecuteArbitraryCommands,
-                        EditConfig,
-                        Exit
-                    })
+                    .AddChoices(RunAll, InstallPackages, OpenWebLinks, SymlinkDotfiles, ExecuteArbitraryCommands,
+                        EditConfig, Exit)
             );
 
             switch (action)
             {
                 case RunAll:
                     AnsiConsole.MarkupLine("Not yet implemented");
+                    // TODO - The CLI should orchestrate and wait for each step
                     if (!ShouldContinue())
                         action = Exit;
                     break;
@@ -87,6 +85,7 @@ public class TerminalInterface
                     AnsiConsole.MarkupLine("[red]Action not supported.[/]");
                     break;
             }
+            AnsiConsole.Clear();
         } while (!action.Equals(Exit));
     }
 
@@ -96,7 +95,7 @@ public class TerminalInterface
         AnsiConsole.Write(
             new FigletText("Lancewood")
                 .Centered()
-                .Color(Color.Aqua));
+                .Color(Color.Purple));
 
         AnsiConsole.Write(
             new Markup("[dim]Your best friend for bootstrapping your new OS. Fast.[/]")

@@ -15,6 +15,17 @@
       "url": "https://github.com/neovim/neovim/wiki/Installing-Neovim"
     }
   ],
-  "dotfiles": [],
-  "commands": []
+  "dotfiles": [
+    {
+      "name": "Bashrc",
+      "sourcePath": "",
+      "targetPath": ""
+    }
+  ],
+  "commands": [
+    {
+      "name": "Install global NPM packages",
+      "command": "npm install --global typescript ts-node"
+    }
+  ]
 }

@@ -10,9 +10,11 @@ public class Engine
     private readonly TextWriter _outputStream;
     private readonly IPackageManager _packageManager;
     private readonly IShell _shell;
+    private readonly string _filePath;
 
     public Engine(String configPath, TextWriter outputStream)
     {
+        _filePath = configPath;
         _config = LoadConfig(configPath);
         _outputStream = outputStream;
         _packageManager = PackageManagerFactory.GetPackageManager();
@@ -22,12 +24,13 @@ public class Engine
     private LancewoodConfig LoadConfig(string filePath)
     {
         var fileContent = File.ReadAllText(filePath);
-        var jsonSerializerOptions = new JsonSerializerOptions(){ PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true};
+        var jsonSerializerOptions = new JsonSerializerOptions()
+            {PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true};
         var config = JsonSerializer.Deserialize<LancewoodConfig>(fileContent, jsonSerializerOptions);
 
         return config;
     }
-    
+
     public async Task InstallPackages()
     {
         if (!_config.Packages.Any())
@@ -38,7 +41,8 @@ public class Engine
         foreach (var package in _config.Packages)
         {
             await _outputStream.WriteAsync($"Installing {package.FriendlyName}...");
-            // await _packageManager.InstallPackage(package.Name);
+            await _packageManager.InstallPackage(package.Name);
+            await _outputStream.WriteLineAsync($"Done.");
         }
     }
 
@@ -52,7 +56,8 @@ public class Engine
         foreach (var dotfile in _config.Dotfiles)
         {
             await _outputStream.WriteAsync($"Symlinking {dotfile.Name}...");
-            // await _packageManager.InstallPackage(package.Name);
+            await _shell.SymlinkFile(dotfile.TargetPath, dotfile.SourcePath);
+            await _outputStream.WriteLineAsync($"Done.");
         }
     }
 
@@ -81,13 +86,14 @@ public class Engine
         foreach (var command in _config.Commands)
         {
             await _outputStream.WriteAsync($"Executing {command.Name}...");
-            // await _packageManager.InstallPackage(package.Name);
+            await _shell.ExecuteArbitraryCommand(command.Command);
+            await _outputStream.WriteLineAsync($"Done.");
         }
     }
 
     public async Task EditConfig()
     {
-        throw new NotImplementedException();
+        // This will open the file in the default editor
+        await _shell.ExecuteArbitraryCommand(_filePath);
     }
-
 }
