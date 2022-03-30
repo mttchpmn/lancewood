@@ -1,0 +1,20 @@
+{
+  "packages": [
+    {
+      "friendlyName": "Vim editor",
+      "name": "vim.vim"
+    }
+  ],
+  "webLinks": [
+    {
+      "name": "Rust Language",
+      "url": "https://www.rust-lang.org/tools/install"
+    },
+    {
+      "name": "NeoVim",
+      "url": "https://github.com/neovim/neovim/wiki/Installing-Neovim"
+    }
+  ],
+  "dotfiles": [],
+  "commands": []
+}

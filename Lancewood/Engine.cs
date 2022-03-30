@@ -1,36 +1,36 @@
-﻿using PackageManager;
+﻿using System.Text.Json;
+using PackageManager;
 using Shell;
 
 namespace Lancewood;
 
-public class Lancewood
+public class Engine
 {
-    private readonly IShell _shell;
-    private readonly IPackageManager _packageManager;
-    private readonly LancewoodConfig? _config;
+    private readonly LancewoodConfig _config;
     private readonly TextWriter _outputStream;
+    private readonly IPackageManager _packageManager;
+    private readonly IShell _shell;
 
-    public Lancewood(TextWriter outputStream)
+    public Engine(String configPath, TextWriter outputStream)
     {
+        _config = LoadConfig(configPath);
         _outputStream = outputStream;
-        _shell = ShellFactory.GetShell();
         _packageManager = PackageManagerFactory.GetPackageManager();
+        _shell = ShellFactory.GetShell();
     }
 
-    Task LoadConfig(string filePath)
+    private LancewoodConfig LoadConfig(string filePath)
     {
-        throw new NotImplementedException();
-    }
+        var fileContent = File.ReadAllText(filePath);
+        var jsonSerializerOptions = new JsonSerializerOptions(){ PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true};
+        var config = JsonSerializer.Deserialize<LancewoodConfig>(fileContent, jsonSerializerOptions);
 
+        return config;
+    }
+    
     public async Task InstallPackages()
     {
-        if (_config == null)
-        {
-            await _outputStream.WriteLineAsync("No Lancewood config loaded. Aborting...");
-            return;
-        }
-
-        if (_config.Packages == null || !_config.Packages.Any())
+        if (!_config.Packages.Any())
         {
             await _outputStream.WriteLineAsync("No packages to install");
         }
@@ -44,13 +44,7 @@ public class Lancewood
 
     public async Task SymlinkFiles()
     {
-        if (_config == null)
-        {
-            await _outputStream.WriteLineAsync("No Lancewood config loaded. Aborting...");
-            return;
-        }
-
-        if (_config.Dotfiles == null || !_config.Dotfiles.Any())
+        if (!_config.Dotfiles.Any())
         {
             await _outputStream.WriteLineAsync("No dotfiles to symlink");
         }
@@ -64,33 +58,22 @@ public class Lancewood
 
     public async Task OpenWebLinks()
     {
-        if (_config == null)
-        {
-            await _outputStream.WriteLineAsync("No Lancewood config loaded. Aborting...");
-            return;
-        }
-
-        if (_config.WebLinks == null || !_config.WebLinks.Any())
+        if (!_config.WebLinks.Any())
         {
             await _outputStream.WriteLineAsync("No web links to open");
         }
 
         foreach (var link in _config.WebLinks)
         {
-            await _outputStream.WriteAsync($"Opening web link for {link.Name}...");
-            // await _packageManager.InstallPackage(package.Name);
+            await _outputStream.WriteAsync($"Opening web link for {link.Name}..........");
+            await _shell.OpenWebBrowser(link.Url);
+            await _outputStream.WriteLineAsync($"Done.");
         }
     }
 
     public async Task RunArbitraryCommands()
     {
-        if (_config == null)
-        {
-            await _outputStream.WriteLineAsync("No Lancewood config loaded. Aborting...");
-            return;
-        }
-
-        if (_config.Commands == null || !_config.Commands.Any())
+        if (!_config.Commands.Any())
         {
             await _outputStream.WriteLineAsync("No packages to install");
         }
@@ -101,4 +84,10 @@ public class Lancewood
             // await _packageManager.InstallPackage(package.Name);
         }
     }
+
+    public async Task EditConfig()
+    {
+        throw new NotImplementedException();
+    }
+
 }
