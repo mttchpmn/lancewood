@@ -24,7 +24,7 @@ public class TerminalInterface
     public TerminalInterface(string[] args)
     {
         var configPath = args.Any() ? args.First() : PromptForConfigPath();
-        
+
         // var configPath = @"C:\Users\matt\RiderProjects\Lancewood\lancewood.windows.json";
         _engine = new Engine(configPath, Console.Out);
     }
@@ -34,11 +34,19 @@ public class TerminalInterface
         var files = Directory.GetFiles(Environment.CurrentDirectory).Where(x => x.EndsWith("json"));
 
         PrintTitle();
+        AnsiConsole.Write(
+            new Panel(new Text(
+                        "Found the following config files in the current directory. If your config is missing, please ensure a valid Lancewood config exists in the same directory as the executable.")
+                    .Centered())
+                .Expand()
+                .RoundedBorder()
+                .Header("Info")
+        );
         var configPath = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
                 .Title("Please select the appropriate Lancewood config:")
                 .AddChoices(files)
-            );
+        );
 
         return configPath;
     }
@@ -95,6 +103,7 @@ public class TerminalInterface
                     AnsiConsole.MarkupLine("[red]Action not supported.[/]");
                     break;
             }
+
             AnsiConsole.Clear();
         } while (!action.Equals(Exit));
     }
@@ -103,9 +112,13 @@ public class TerminalInterface
     {
         AnsiConsole.Clear();
         AnsiConsole.Write(
-            new FigletText("Lancewood")
-                .Centered()
-                .Color(Color.Purple));
+            new Panel(
+                new FigletText("Lancewood")
+                    .Centered()
+                    .Color(Color.Orange1))
+                .Expand()
+                .RoundedBorder()
+        );
 
         AnsiConsole.Write(
             new Markup("[dim]Your best friend for bootstrapping your new OS. Fast.[/]")
