@@ -1,31 +1,113 @@
 {
   "packages": [
     {
-      "friendlyName": "Vim editor",
-      "name": "vim.vim"
+      "friendlyName": "Powershell",
+      "name": "Microsoft.Powershell"
+    },
+    {
+      "friendlyName": "Powertoys",
+      "name": "Microsoft.Powertoys"
+    },
+    {
+      "friendlyName": "Neovim",
+      "name": "Neovim.Neovim"
+    },
+    {
+      "friendlyName": "VS Code",
+      "name": "Microsoft.VisualStudioCode"
+    },
+    {
+      "friendlyName": "GitHub CLI",
+      "name": "Github.cli"
+    },
+    {
+      "friendlyName": "PyCharm",
+      "name": "Jetbrains.PyCharm.Community"
+    },
+    {
+      "friendlyName": "Rider",
+      "name": "Jetbrains.Rider"
+    },
+    {
+      "friendlyName": "IntelliJ IDEA",
+      "name": "Jetbrains.IntelliJIDEA.Community"
+    },
+    {
+      "friendlyName": "Insomnia",
+      "name": "Insomnia.Insomnia"
+    },
+    {
+      "friendlyName": "Slack",
+      "name": "Slack.Slack"
+    },
+    {
+      "friendlyName": "Notion",
+      "name": "Notion.Notion"
+    },
+    {
+      "friendlyName": "Blender",
+      "name": "BlenderFoundation.Blender"
+    },
+    {
+      "friendlyName": "Spotify",
+      "name": "Spotify.Spotify"
+    },
+    {
+      "friendlyName": "Docker",
+      "name": "Docker.DockerDesktop"
+    },
+    {
+      "friendlyName": "Rust",
+      "name": "Rustlang.Rustup"
+    },
+    {
+      "friendlyName": "Python 3.9",
+      "name": "Python.Python.3.9"
+    },
+    {
+      "friendlyName": ".NET 6",
+      "name": "Microsoft.DotNet.SDK.6"
+    },
+    {
+      "friendlyName": "NVM",
+      "name": "CoreyButler.NVMforWindows"
+    },
+    {
+      "friendlyName": "Oh My Posh",
+      "name": "JanDeDobbeleer.OhMyPosh"
     }
   ],
   "webLinks": [
     {
-      "name": "Rust Language",
-      "url": "https://www.rust-lang.org/tools/install"
-    },
-    {
-      "name": "NeoVim",
-      "url": "https://github.com/neovim/neovim/wiki/Installing-Neovim"
+      "name": "NVM Windows",
+      "url": "https://github.com/coreybutler/nvm-windows/releases"
     }
   ],
   "dotfiles": [
     {
-      "name": "Bashrc",
+      "name": "Bash rc",
       "sourcePath": "",
       "targetPath": ""
+    },
+    {
+      "name": "IdeaVIM rc",
+      "sourcePath": "shared\\.ideavimrc",
+      "targetPath": ".ideavimrc"
+    },
+    {
+      "name": "Powershell Profile",
+      "sourcePath": "windows\\Microsoft.PowerShell_profile.ps1",
+      "targetPath": "Documents\\PowerShell\\Microsoft.PowerShell_profile.ps1"
     }
   ],
   "commands": [
     {
       "name": "Install global NPM packages",
       "command": "npm install --global typescript ts-node"
+    },
+    {
+      "name": "Install Poetry for Python",
+      "command": "(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -"
     }
   ]
 }

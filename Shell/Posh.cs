@@ -14,7 +14,7 @@ public class Posh : IShell
 
     public Task OpenWebBrowser(string url)
     {
-        if (String.IsNullOrWhiteSpace(url))
+        if (string.IsNullOrWhiteSpace(url))
         {
             throw new InvalidOperationException("URL cannot be empty");
         }
