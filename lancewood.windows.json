@@ -2,11 +2,11 @@
   "packages": [
     {
       "friendlyName": "Powershell",
-      "name": "Microsoft.Powershell"
+      "name": "Microsoft.PowerShell"
     },
     {
-      "friendlyName": "Powertoys",
-      "name": "Microsoft.Powertoys"
+      "friendlyName": "PowerToys",
+      "name": "Microsoft.PowerToys"
     },
     {
       "friendlyName": "Neovim",
@@ -17,20 +17,16 @@
       "name": "Microsoft.VisualStudioCode"
     },
     {
-      "friendlyName": "GitHub CLI",
-      "name": "Github.cli"
-    },
-    {
       "friendlyName": "PyCharm",
-      "name": "Jetbrains.PyCharm.Community"
+      "name": "JetBrains.PyCharm.Community"
     },
     {
       "friendlyName": "Rider",
-      "name": "Jetbrains.Rider"
+      "name": "JetBrains.Rider"
     },
     {
       "friendlyName": "IntelliJ IDEA",
-      "name": "Jetbrains.IntelliJIDEA.Community"
+      "name": "JetBrains.IntelliJIDEA.Community"
     },
     {
       "friendlyName": "Insomnia",
@@ -38,7 +34,7 @@
     },
     {
       "friendlyName": "Slack",
-      "name": "Slack.Slack"
+      "name": "SlackTechnologies.Slack"
     },
     {
       "friendlyName": "Notion",
